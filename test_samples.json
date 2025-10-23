@@ -1,0 +1,22 @@
+[
+  {
+    "channel": "email",
+    "severity": "high",
+    "summary": "Customer reported payment API timeout error after deployment"
+  },
+  {
+    "channel": "chat",
+    "severity": "medium",
+    "summary": "User unable to login to dashboard"
+  },
+  {
+    "channel": "form",
+    "severity": "critical",
+    "summary": "Crash in transaction module during balance update"
+  },
+  {
+    "channel": "email",
+    "severity": "low",
+    "summary": "System running slow during off-peak hours"
+  }
+]
