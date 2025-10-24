@@ -1,4 +1,12 @@
 def classify_ticket(ticket):
+    """
+    Core logic for classifying support tickets into:
+    - AI_Code_Patch
+    - Vibe_Coded_Workflow
+
+    Returns structured response with decision, reasoning, and checklist.
+    """
+
     channel = ticket.get("channel", "").lower()
     severity = ticket.get("severity", "").lower()
     summary = ticket.get("summary", "").lower()
@@ -11,35 +19,36 @@ def classify_ticket(ticket):
         "Follow-up with customer if unresolved"
     ]
 
+    # --- Classification Heuristics ---
     if "error" in summary or "exception" in summary or "crash" in summary:
         decision = "AI_Code_Patch"
-        reasoning = "Detected technical error suggesting a code-level issue."
+        reasoning = "Detected technical error suggesting a code-level issue requiring AI-generated remediation."
         next_actions = [
-            "Generate AI patch for identified module",
-            "Simulate patch in staging environment",
-            "Validate and deploy fix"
+            "Trigger AI code patch generation workflow",
+            "Run patch simulation in staging",
+            "Validate fix via API test suite"
         ]
     elif "payment" in summary or "transaction" in summary:
         decision = "AI_Code_Patch" if severity in ["high", "critical"] else "Vibe_Coded_Workflow"
-        reasoning = "Payment-related issue prioritized for AI fix due to financial impact."
+        reasoning = "Payment-related issue prioritized for AI remediation due to potential financial impact."
         next_actions = [
             "Analyze transaction logs",
             "Run AI repair model for backend scripts",
-            "Verify with QA tests before release"
+            "Verify patch in QA environment"
         ]
     elif "login" in summary or "access" in summary:
-        reasoning = "Access-related issue suitable for pre-coded troubleshooting flow."
+        reasoning = "Access-related issue suitable for pre-coded troubleshooting workflow."
         next_actions = [
-            "Reset user session",
-            "Re-run authentication test workflow",
-            "Notify customer about access recovery"
+            "Reset user session tokens",
+            "Re-run authentication test scripts",
+            "Notify customer about restored access"
         ]
     elif "slow" in summary or "performance" in summary:
-        reasoning = "Performance degradation—requires system metrics analysis via coded workflow."
+        reasoning = "Performance degradation—requires system diagnostics via coded workflow."
         next_actions = [
-            "Run performance diagnostic scripts",
-            "Identify bottleneck module",
-            "Apply patch if required"
+            "Run performance analysis scripts",
+            "Identify and isolate slow modules",
+            "Apply performance patch if needed"
         ]
 
     return {
